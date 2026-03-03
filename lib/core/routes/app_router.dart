@@ -7,7 +7,7 @@ class AppRouter {
   static const String cart = '/cart';
 
   static Map<String, WidgetBuilder> get routes => {
-        catalog: (context) => const CatalogPage(),
-        cart: (context) => const CartPage(),
-      };
+    catalog: (context) => const CatalogPage(),
+    cart: (context) => const CartPage(),
+  };
 }
