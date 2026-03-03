@@ -26,7 +26,6 @@ class CartModel extends ChangeNotifier {
   }
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -36,8 +35,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/' :(context) => const MyCatalog(),
-        '/cart' :(context) => const MyCart(),
+        '/': (context) => const MyCatalog(),
+        '/cart': (context) => const MyCart(),
       },
     );
   }
@@ -51,36 +50,48 @@ class MyCatalog extends StatelessWidget {
     final products = ['Croisant', 'Muffin', 'Bagel', 'Donut', 'Coffee'];
 
     return Scaffold(
-            appBar: AppBar(
-              title: const Text("Catalogue Resto"),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.shopping_cart),
-                  onPressed: () => Navigator.pushNamed(context, '/cart'),
-                  )
-              ],
-            ),
-            body: ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (context, index){
-                return ListTile(
-                  title: Text(products[index]),
-                  trailing: addButton(item: products[index]),
-                );
-              },
-            ),
+      appBar: AppBar(
+        title: const Text("Catalogue Resto"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () => Navigator.pushNamed(context, '/cart'),
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(products[index]),
+            trailing: addButton(item: products[index]),
           );
+        },
+      ),
+    );
   }
 }
 
 // Class addbutton
 class addButton extends StatelessWidget {
   final String item;
-
   const addButton({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final isInCart = context.select<CartModel, bool>(
+      (cart) => cart.items.contains(item),
+    );
+
+    return TextButton(
+      onPressed: isInCart
+          ? null
+          : () {
+              context.read<CartModel>().addItem(item);
+            },
+      child: isInCart
+          ? const Icon(Icons.check, color: Colors.green)
+          : const Text('Add'),
+    );
   }
 }
