@@ -8,6 +8,6 @@ class AppRouter {
 
   static Map<String, WidgetBuilder> get routes => {
     catalog: (context) => const CatalogPage(),
-    cart: (context) => const CartPage(),
+    cart: (context) => const MyCart(),
   };
 }
