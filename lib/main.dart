@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'core/routes/app_router.dart';
 
 void main() {
   runApp(
@@ -33,11 +34,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const MyCatalog(),
-        '/cart': (context) => const MyCart(),
-      },
+      initialRoute: AppRouter.catalog,
+      routes: AppRouter.routes,
     );
   }
 }
