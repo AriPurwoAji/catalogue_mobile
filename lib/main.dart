@@ -95,3 +95,33 @@ class addButton extends StatelessWidget {
     );
   }
 }
+
+// Class MyCart
+class MyCart extends StatelessWidget {
+  const MyCart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final cartItems = context.watch<CartModel>().items;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("My Cart"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () => context.read<CartModel>().removeAll(),
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: cartItems.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(cartItems[index]),
+          );
+        },
+      ),
+    );
+  }
+}
