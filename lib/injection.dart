@@ -12,3 +12,7 @@ Widget buildApp() {
     child: const MyApp(),
   );
 }
+
+void main() {
+  runApp(buildApp());
+}
